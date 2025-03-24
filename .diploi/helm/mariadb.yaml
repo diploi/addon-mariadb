@@ -31,8 +31,7 @@ spec:
             - name: mariadb-mount
               mountPath: /var/lib/mysql
           args:
-            --innodb_flush_method
-            NULL
+            - "--innodb_flush_method=NULL"
       volumes:
         - name: mariadb-mount
           hostPath:
