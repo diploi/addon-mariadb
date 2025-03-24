@@ -31,8 +31,8 @@ spec:
             - name: mariadb-mount
               mountPath: /var/lib/mysql
           args:
-            - "--innodb_flush_method=O_DSYNC"
             - "--innodb_flush_log_at_trx_commit=1"
+            - "--innodb_max_dirty_pages_pct=0"
       volumes:
         - name: mariadb-mount
           hostPath:
