@@ -20,26 +20,17 @@ parameterGroups:
         readOnly: true
       - name: User
         identifier: MARIADB_USER
-        defaultValue: mariadb
+        defaultValue: root
         type: string
+        readOnly: true
       - name: Password
         identifier: MARIADB_PASSWORD
-        defaultValue: mariadb
+        defaultValue: root
         type: secret
       - name: Database
         identifier: MARIADB_DATABASE
         defaultValue: app
         type: string
-  - name: Root User Password
-    identifier: ROOT_USER
-    description: Should the root user use a password
-    toggleable: true
-    defaultValue: true
-    parameters:
-      - name: Password
-        identifier: MARIADB_ROOT_PASSWORD
-        defaultValue: password
-        type: secret
 
 environmentVariables:
   - identifier: MARIADB_USER

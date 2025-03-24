@@ -21,10 +21,8 @@ spec:
             - containerPort: {{ .Values.parameterGroupsMap.MARIADB_PORT }}
               name: mariadb
           env:
-            {{- if eq .Values.parameterGroupsEnabled.ROOT_USER false }}
-            - name: MARIADB_ALLOW_EMPTY_ROOT_PASSWORD
-              value: 1
-            {{- end }}
+            - name: MARIADB_ROOT_PASSWORD
+              value: {{ .Values.parameterGroupsMap.MARIADB_PASSWORD }}
             {{- range .Values.env }}
             - name: {{ .identifier }}
               value: {{ .value | quote }}
