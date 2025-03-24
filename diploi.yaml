@@ -1,0 +1,65 @@
+diploiVersion: v1.0
+type: addon
+name: MariaDB
+description: Official MariaDB addon for Diploi
+
+parameterGroups:
+  - name: Connection
+    identifier: CONNECTION
+    description: Connection & user configuration
+    parameters:
+      - name: Host
+        identifier: MARIADB_HOST
+        defaultValue: mariadb.${DIPLOI_NAMESPACE}
+        type: string
+        readOnly: true
+      - name: Port
+        identifier: MARIADB_PORT
+        defaultValue: 3306
+        type: integer
+        readOnly: true
+      - name: User
+        identifier: MARIADB_USER
+        defaultValue: mariadb
+        type: string
+      - name: Password
+        identifier: MARIADB_PASSWORD
+        defaultValue: mariadb
+        type: secret
+      - name: Database
+        identifier: MARIADB_DATABASE
+        defaultValue: app
+        type: string
+  - name: Root User Password
+    identifier: ROOT_USER
+    description: Should the root user use a password
+    toggleable: true
+    defaultValue: true
+    parameters:
+      - name: Password
+        identifier: MARIADB_ROOT_PASSWORD
+        defaultValue: password
+        type: secret
+
+environmentVariables:
+  - identifier: MARIADB_USER
+    defaultValue: root
+    type: string
+
+connectionStrings:
+  - name: Connection URI
+    value: mysql://${MARIADB_USER}:${MARIADB_PASSWORD}@${MARIADB_HOST}:${MARIADB_PORT}/${MARIADB_DB}
+    description: This connection URI is for components within the deployment and is inaccessible externally.
+
+logs:
+  - name: MariaDB Log
+    type: log
+    labelSelector: app=mariadb
+
+images:
+  - identifier: mariadb
+    image: mariadb:11.8
+
+storage:
+  - identifier: mariadb
+    sizeMiB: 6144

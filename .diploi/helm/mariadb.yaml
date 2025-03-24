@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb
+spec:
+  selector:
+    matchLabels:
+      app: mariadb
+  serviceName: mariadb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+        - name: mariadb
+          image: {{ .Values.images.mariadb }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.parameterGroupsMap.MARIADB_PORT }}
+              name: mariadb
+          env:
+            {{- if eq .Values.parameterGroupsEnabled.ROOT_USER false }}
+            - name: MARIADB_ALLOW_EMPTY_ROOT_PASSWORD
+              value: 1
+            {{- end }}
+            {{- range .Values.env }}
+            - name: {{ .identifier }}
+              value: {{ .value | quote }}
+            {{- end }}
+          volumeMounts:
+            - name: mariadb-mount
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mariadb-mount
+          hostPath:
+            path: {{ $.Values.storage.postgres.hostPath }}
