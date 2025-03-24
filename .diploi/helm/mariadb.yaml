@@ -32,6 +32,7 @@ spec:
               mountPath: /var/lib/mysql
           args:
             - "--innodb_flush_method=O_DSYNC"
+            - "--innodb_force_recovery=1"
       volumes:
         - name: mariadb-mount
           hostPath:
