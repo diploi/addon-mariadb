@@ -39,7 +39,7 @@ environmentVariables:
 
 connectionStrings:
   - name: Connection URI
-    value: mysql://${MARIADB_USER}:${MARIADB_PASSWORD}@${MARIADB_HOST}:${MARIADB_PORT}/${MARIADB_DB}
+    value: mysql://${MARIADB_USER}:${MARIADB_PASSWORD}@${MARIADB_HOST}:${MARIADB_PORT}/${MARIADB_DATABASE}
     description: This connection URI is for components within the deployment and is inaccessible externally.
 
 logs:
